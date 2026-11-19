@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DOSE — Nomad studio · Made by hand</title>
+  <meta name="description" content="DOSE is a nomad studio making handcrafted objects in different cities. No. 01 — Jaipur: silver and stone jewellery, made by hand.">
+  <link rel="icon" href="assets/logo/DOSE-symbol-O-black.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Instrument+Serif&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="#/shop">Shop</a>
+      <a href="#/studio">Studio</a>
+    </nav>
+    <a href="#/" class="brand" aria-label="DOSE home">
+      <img src="assets/logo/DOSE-open-black.svg" alt="DOSE">
+    </a>
+    <div class="nav nav-right">
+      <button type="button" class="cart-toggle" data-action="open-cart">Cart (<span data-cart-count>0</span>)</button>
+    </div>
+  </header>
+
+  <main id="app"></main>
+
+  <footer class="site-footer">
+    <div class="footer-col">
+      <img src="assets/logo/DOSE-symbol-O-black.svg" alt="DOSE" class="footer-symbol">
+      <span class="muted">Nomad studio · Made by hand</span>
+    </div>
+    <div class="footer-col">
+      <a href="#/shop">Shop</a>
+      <a href="#/studio">Studio</a>
+      <a href="mailto:hello@doseof.com">Contact</a>
+    </div>
+    <div class="footer-col">
+      <span>Shipping &amp; returns</span>
+      <span>Care</span>
+      <a href="https://instagram.com/doseof" target="_blank" rel="noopener">Instagram @doseof</a>
+    </div>
+    <form class="footer-col newsletter" data-newsletter>
+      <label for="newsletter-email">Letters from the next city</label>
+      <div class="newsletter-field">
+        <input id="newsletter-email" type="email" placeholder="Email" required>
+        <button type="submit">Join</button>
+      </div>
+      <span class="newsletter-note muted" hidden>Thank you. Letters coming soon.</span>
+    </form>
+  </footer>
+
+  <div class="cart-backdrop" data-action="close-cart" hidden></div>
+  <aside class="cart" aria-label="Cart" hidden>
+    <div class="cart-head">
+      <span>Cart (<span data-cart-count>0</span>)</span>
+      <button type="button" data-action="close-cart">Close</button>
+    </div>
+    <div class="cart-body" data-cart-items></div>
+    <div class="cart-foot">
+      <div class="cart-subtotal"><span>Subtotal</span><span data-cart-subtotal>€0</span></div>
+      <button type="button" class="btn-primary" data-action="checkout">Checkout</button>
+    </div>
+  </aside>
+
+  <script src="data/products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Instrument+Serif&display=swap">
+<style>body{margin:0;background:#f4f3f0;-webkit-font-smoothing:antialiased}::selection{background:#141414;color:#f4f3f0}:focus-visible{outline:1px solid #141414;outline-offset:3px}a{color:#141414;text-decoration:none}a:hover{color:#6b6b68}button{font:inherit}</style>
+</helmet>
+<div style="min-height:100vh;background:#f4f3f0;color:#141414;font-family:'Instrument Sans',sans-serif;display:flex;flex-direction:column">
+
+  <header style="position:sticky;top:0;z-index:20;background:#f4f3f0;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:14px clamp(16px,3vw,40px);border-bottom:1px solid #d9d7d2">
+    <nav style="display:flex;gap:24px;font-size:12px;letter-spacing:.08em;text-transform:uppercase">
+      <a href="#" onClick="{{ goShop }}" style="color:#141414">Shop</a>
+      <a href="#" onClick="{{ goStudio }}" style="color:#141414">Studio</a>
+    </nav>
+    <a href="#" onClick="{{ goHome }}" aria-label="DOSE home" style="display:flex;justify-content:center"><img src="DOSE logo files/master/DOSE-open-black.svg" alt="DOSE" style="height:44px;display:block"></a>
+    <div style="display:flex;justify-content:flex-end;gap:24px;font-size:12px;letter-spacing:.08em;text-transform:uppercase">
+      <button onClick="{{ openCart }}" style="background:none;border:0;padding:0;cursor:pointer;color:#141414;font-size:12px;letter-spacing:.08em;text-transform:uppercase">Cart ({{ cartCount }})</button>
+    </div>
+  </header>
+
+  <main style="flex:1">
+
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <section data-screen-label="Home">
+        <sc-if value="{{ heroFull }}" hint-placeholder-val="{{ true }}">
+          <div style="height:min(86vh,900px);overflow:hidden"><img src="uploads/photos-1794950466163-asmr.jpg" alt="Two models in a Jaipur street wearing DOSE silver and stone" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block"></div>
+        </sc-if>
+        <sc-if value="{{ heroFramed }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:clamp(16px,3vw,40px) clamp(16px,3vw,40px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(16px,3vw,40px)">
+            <div style="aspect-ratio:4/5;overflow:hidden"><img src="uploads/photos-1794950608998-kgeo.jpg" alt="Model in Jaipur wearing DOSE necklaces" style="width:100%;height:100%;object-fit:cover;object-position:center 60%;display:block"></div>
+            <div style="aspect-ratio:4/5;overflow:hidden"><img src="uploads/photos-1794950542120-3tu7.jpg" alt="Model in a Jaipur tea house wearing DOSE pearls and silver" style="width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block"></div>
+          </div>
+        </sc-if>
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:16px;padding:18px clamp(16px,3vw,40px) 0">
+          <span style="font-size:12px;letter-spacing:.08em;line-height:1.5">No. 01 — Jaipur<br><span style="color:#6b6b68">Photographed in the old city, 2026</span></span>
+          <a href="#" onClick="{{ goShop }}" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid currentColor;padding-bottom:2px">Shop the collection</a>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:clamp(56px,8vw,112px) clamp(16px,3vw,40px) 20px">
+          <h2 style="font-family:'Instrument Serif',serif;font-weight:400;letter-spacing:-0.01em;margin:0;font-size:32px">New from Jaipur</h2>
+          <a href="#" onClick="{{ goShop }}" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase">View all {{ productCount }}</a>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax({{ cardMin }},1fr));gap:32px 16px;padding:0 clamp(16px,3vw,40px)">
+          <sc-for list="{{ featured }}" as="p" hint-placeholder-count="4">
+            <a href="#" onClick="{{ p.open }}" style="display:flex;flex-direction:column;gap:10px;color:#141414">
+              <div style="aspect-ratio:4/5;overflow:hidden;background:#e6e4df"><img src="{{ p.img }}" alt="{{ p.name }}" style="width:100%;height:100%;object-fit:cover;object-position:{{ p.pos }};display:block;transform:scale({{ p.zoom }})"></div>
+              <div style="display:flex;justify-content:space-between;gap:12px;font-size:13px;line-height:1.4"><span>{{ p.name }}</span><span>€{{ p.price }}</span></div>
+              <sc-if value="{{ showCodes }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;letter-spacing:.08em;color:#6b6b68;margin-top:-6px">{{ p.code }}</span></sc-if>
+            </a>
+          </sc-for>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(24px,4vw,64px);align-items:end;padding:clamp(72px,10vw,144px) clamp(16px,3vw,40px)">
+          <div style="aspect-ratio:4/3;overflow:hidden"><img src="uploads/photos-1794950568977-5cxx.jpg" alt="Stone cutting at a Jaipur workshop" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <div style="display:flex;flex-direction:column;gap:20px;max-width:46ch">
+            <span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6b6b68">Nomad studio · Made by hand</span>
+            <h2 style="font-family:'Instrument Serif',serif;font-weight:400;letter-spacing:-0.01em;margin:0;font-size:clamp(32px,4vw,48px);line-height:1">We don't make souvenirs. We make doses.</h2>
+            <p style="margin:0;font-size:16px;line-height:1.65;text-wrap:pretty">DOSE moves from city to city and makes objects by hand with the people who live there. The first collection was made at the bench with the stone cutters and silversmiths of Jaipur, then photographed in the streets where it was made.</p>
+            <a href="#" onClick="{{ goStudio }}" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid currentColor;padding-bottom:2px;align-self:flex-start">The studio</a>
+          </div>
+        </div>
+
+        <div style="padding:0 clamp(16px,3vw,40px) clamp(72px,10vw,144px)">
+          <h6 style="font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;margin:0 0 12px;color:#6b6b68">Collections</h6>
+          <sc-for list="{{ collections }}" as="c" hint-placeholder-count="2">
+            <div style="display:grid;grid-template-columns:80px minmax(0,1fr) minmax(0,1fr) auto;gap:16px;align-items:baseline;padding:18px 0;border-top:1px solid #d9d7d2;opacity:{{ c.op }}">
+              <span style="font-family:'Instrument Serif',serif;font-size:24px">{{ c.no }}</span>
+              <span style="font-family:'Instrument Serif',serif;font-size:24px">{{ c.city }}</span>
+              <span style="font-size:13px;color:#6b6b68">{{ c.craft }}</span>
+              <span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase">{{ c.status }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ isShop }}" hint-placeholder-val="{{ false }}">
+      <section data-screen-label="Shop" style="padding:clamp(32px,5vw,72px) clamp(16px,3vw,40px) clamp(72px,10vw,144px)">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;padding-bottom:20px">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6b6b68">No. 01 — Jaipur · Silver &amp; stone</span>
+            <h1 style="font-family:'Instrument Serif',serif;font-weight:400;letter-spacing:-0.01em;margin:0;font-size:clamp(40px,6vw,72px);line-height:.9">Shop</h1>
+          </div>
+          <div style="display:flex;gap:20px;flex-wrap:wrap">
+            <sc-for list="{{ filters }}" as="f" hint-placeholder-count="5">
+              <button onClick="{{ f.onClick }}" style="background:none;border:0;padding:0 0 2px;cursor:pointer;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#141414;border-bottom:1px solid {{ f.line }}">{{ f.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax({{ cardMin }},1fr));gap:40px 16px;padding-top:20px;border-top:1px solid #d9d7d2">
+          <sc-for list="{{ shopList }}" as="p" hint-placeholder-count="8">
+            <a href="#" onClick="{{ p.open }}" style="display:flex;flex-direction:column;gap:10px;color:#141414">
+              <div style="aspect-ratio:4/5;overflow:hidden;background:#e6e4df"><img src="{{ p.img }}" alt="{{ p.name }}" style="width:100%;height:100%;object-fit:cover;object-position:{{ p.pos }};display:block;transform:scale({{ p.zoom }})"></div>
+              <div style="display:flex;justify-content:space-between;gap:12px;font-size:13px;line-height:1.4"><span>{{ p.name }}</span><span>€{{ p.price }}</span></div>
+              <sc-if value="{{ showCodes }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;letter-spacing:.08em;color:#6b6b68;margin-top:-6px">{{ p.code }}</span></sc-if>
+            </a>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
+      <section data-screen-label="Product" style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:clamp(24px,4vw,64px);padding:clamp(16px,3vw,40px) clamp(16px,3vw,40px) clamp(72px,10vw,144px)">
+        <div style="flex:1.4 1 420px;min-width:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px">
+          <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="2">
+            <div style="aspect-ratio:4/5;overflow:hidden;background:#e6e4df"><img src="{{ g.img }}" alt="{{ g.alt }}" style="width:100%;height:100%;object-fit:cover;object-position:{{ g.pos }};transform:scale({{ g.zoom }});display:block"></div>
+          </sc-for>
+        </div>
+        <div style="flex:1 1 320px;min-width:0;max-width:480px;position:sticky;top:96px;display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <a href="#" onClick="{{ goShop }}" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6b6b68">← No. 01 — Jaipur</a>
+            <h1 style="font-family:'Instrument Serif',serif;font-weight:400;letter-spacing:-0.01em;margin:0;font-size:clamp(36px,4vw,52px);line-height:.95">{{ product.name }}</h1>
+            <span style="font-size:16px">€{{ product.price }}</span>
+          </div>
+          <p style="margin:0;font-size:15px;line-height:1.65;text-wrap:pretty">{{ product.desc }}</p>
+          <table style="width:100%;border-collapse:collapse;font-size:13px">
+            <tbody>
+              <tr><th style="width:36%;text-align:left;font-weight:400;color:#6b6b68;padding:10px 12px 10px 0;border-top:1px solid #d9d7d2;vertical-align:top">No.</th><td style="padding:10px 0;border-top:1px solid #d9d7d2;vertical-align:top">01 — Jaipur</td></tr>
+              <tr><th style="text-align:left;font-weight:400;color:#6b6b68;padding:10px 12px 10px 0;border-top:1px solid #d9d7d2;vertical-align:top">Metal</th><td style="padding:10px 0;border-top:1px solid #d9d7d2;vertical-align:top">Sterling silver, Ag 925</td></tr>
+              <tr><th style="text-align:left;font-weight:400;color:#6b6b68;padding:10px 12px 10px 0;border-top:1px solid #d9d7d2;vertical-align:top">Stone</th><td style="padding:10px 0;border-top:1px solid #d9d7d2;vertical-align:top">{{ product.stone }}</td></tr>
+              <tr><th style="text-align:left;font-weight:400;color:#6b6b68;padding:10px 12px 10px 0;border-top:1px solid #d9d7d2;vertical-align:top">Made</th><td style="padding:10px 0;border-top:1px solid #d9d7d2;vertical-align:top">By hand, Jaipur old city</td></tr>
+              <tr><th style="text-align:left;font-weight:400;color:#6b6b68;padding:10px 12px 10px 0;border-top:1px solid #d9d7d2;vertical-align:top">Code</th><td style="padding:10px 0;border-top:1px solid #d9d7d2;vertical-align:top;letter-spacing:.08em">{{ product.code }}</td></tr>
+            </tbody>
+          </table>
+          <sc-if value="{{ product.sized }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase">Size</span>
+              <div style="display:flex;gap:8px">
+                <sc-for list="{{ sizes }}" as="s" hint-placeholder-count="4">
+                  <button onClick="{{ s.onClick }}" style="width:48px;height:44px;cursor:pointer;font-size:13px;border:1px solid {{ s.border }};background:{{ s.bg }};color:{{ s.fg }}">{{ s.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+          <button onClick="{{ addToCart }}" style="height:52px;border:0;cursor:pointer;background:#141414;color:#f4f3f0;font-size:12px;letter-spacing:.12em;text-transform:uppercase" style-hover="background:#3a3a38">{{ addLabel }}</button>
+          <div style="display:flex;flex-direction:column;font-size:13px;line-height:1.5;color:#3a3a38">
+            <span>Each piece is cut and set by hand, so stones vary slightly.</span>
+            <span>Ships from the studio in 5–10 days, worldwide.</span>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ isStudio }}" hint-placeholder-val="{{ false }}">
+      <section data-screen-label="Studio" style="padding:clamp(32px,5vw,72px) clamp(16px,3vw,40px) clamp(72px,10vw,144px);display:flex;flex-direction:column;gap:clamp(48px,7vw,96px)">
+        <div style="display:flex;flex-direction:column;gap:16px;max-width:900px">
+          <span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6b6b68">Studio</span>
+          <h1 style="font-family:'Instrument Serif',serif;font-weight:400;letter-spacing:-0.01em;margin:0;font-size:clamp(40px,6vw,80px);line-height:.92">A nomad studio. Each city gives a new dose.</h1>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(24px,4vw,64px);align-items:start">
+          <div style="aspect-ratio:4/5;overflow:hidden"><img src="uploads/photos-1794950542120-3tu7.jpg" alt="Model in a Jaipur tea house wearing DOSE" style="width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block"></div>
+          <div style="display:flex;flex-direction:column;gap:20px;max-width:52ch;font-size:16px;line-height:1.7">
+            <p style="margin:0">It started with a few months in Jaipur. I went to learn jewellery making and gemology, at the bench with the stone cutters and silversmiths of the old city. I stayed for the people.</p>
+            <p style="margin:0">DOSE is what came out of it: objects made by hand, in the place they come from, with the people who know how. The first collection is silver and stone. The next may be cloth, or something else. The city decides.</p>
+            <p style="margin:0">Every collection gets a number. No. 01 is Jaipur. No. 02 is on its way.</p>
+            <table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:12px">
+              <tbody>
+                <tr><th style="width:36%;text-align:left;font-weight:400;color:#6b6b68;padding:10px 12px 10px 0;border-top:1px solid #d9d7d2;vertical-align:top">No. 01</th><td style="padding:10px 0;border-top:1px solid #d9d7d2;vertical-align:top">Jaipur · Silver &amp; stone</td></tr>
+                <tr><th style="text-align:left;font-weight:400;color:#6b6b68;padding:10px 12px 10px 0;border-top:1px solid #d9d7d2;vertical-align:top">No. 02</th><td style="padding:10px 0;border-top:1px solid #d9d7d2;vertical-align:top">To be announced</td></tr>
+                <tr><th style="text-align:left;font-weight:400;color:#6b6b68;padding:10px 12px 10px 0;border-top:1px solid #d9d7d2;vertical-align:top">Write</th><td style="padding:10px 0;border-top:1px solid #d9d7d2;vertical-align:top"><a href="mailto:hello@doseof.com">hello@doseof.com</a></td></tr>
+                <tr><th style="text-align:left;font-weight:400;color:#6b6b68;padding:10px 12px 10px 0;border-top:1px solid #d9d7d2;vertical-align:top">Follow</th><td style="padding:10px 0;border-top:1px solid #d9d7d2;vertical-align:top">@doseof</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+  </main>
+
+  <footer style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:32px;padding:40px clamp(16px,3vw,40px);border-top:1px solid #d9d7d2;font-size:12px;letter-spacing:.04em;line-height:1.7">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <img src="DOSE logo files/master/DOSE-symbol-O-black.svg" alt="DOSE" style="height:44px;width:auto;align-self:flex-start">
+      <span style="color:#6b6b68">Nomad studio · Made by hand</span>
+    </div>
+    <div style="display:flex;flex-direction:column"><a href="#" onClick="{{ goShop }}">Shop</a><a href="#" onClick="{{ goStudio }}">Studio</a><a href="mailto:hello@doseof.com">Contact</a></div>
+    <div style="display:flex;flex-direction:column"><span>Shipping &amp; returns</span><span>Care</span><span>Instagram @doseof</span></div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span>Letters from the next city</span>
+      <div style="display:flex;border-bottom:1px solid #141414"><input placeholder="Email" style="flex:1;min-width:0;border:0;background:transparent;padding:8px 0;font:inherit;outline:none;color:#141414"><button style="background:none;border:0;cursor:pointer;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#141414">Join</button></div>
+    </div>
+  </footer>
+
+  <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeCart }}" style="position:fixed;inset:0;z-index:40;background:rgba(29,31,32,.25)"></div>
+    <aside style="position:fixed;top:0;right:0;bottom:0;z-index:41;width:min(420px,100%);background:#f4f3f0;border-left:1px solid #d9d7d2;display:flex;flex-direction:column">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:1px solid #d9d7d2;font-size:12px;letter-spacing:.08em;text-transform:uppercase"><span>Cart ({{ cartCount }})</span><button onClick="{{ closeCart }}" style="background:none;border:0;cursor:pointer;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#141414">Close</button></div>
+      <div style="flex:1;overflow:auto;padding:0 24px">
+        <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}"><p style="margin:24px 0;font-size:14px;color:#6b6b68">Your cart is empty.</p></sc-if>
+        <sc-for list="{{ cartItems }}" as="c" hint-placeholder-count="0">
+          <div style="display:grid;grid-template-columns:72px 1fr auto;gap:14px;padding:18px 0;border-bottom:1px solid #d9d7d2;font-size:13px">
+            <div style="aspect-ratio:4/5;overflow:hidden"><img src="{{ c.img }}" alt="{{ c.name }}" style="width:100%;height:100%;object-fit:cover;object-position:{{ c.pos }};display:block"></div>
+            <div style="display:flex;flex-direction:column;gap:4px"><span>{{ c.name }}</span><span style="color:#6b6b68">{{ c.meta }}</span><button onClick="{{ c.remove }}" style="align-self:flex-start;background:none;border:0;padding:0;margin-top:6px;cursor:pointer;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6b6b68">Remove</button></div>
+            <span>€{{ c.total }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="padding:20px 24px;border-top:1px solid #d9d7d2;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;justify-content:space-between;font-size:14px"><span>Subtotal</span><span>€{{ subtotal }}</span></div>
+        <button style="height:52px;border:0;cursor:pointer;background:#141414;color:#f4f3f0;font-size:12px;letter-spacing:.12em;text-transform:uppercase">Checkout</button>
+      </div>
+    </aside>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;hero&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Full bleed&quot;,&quot;Framed pair&quot;],&quot;default&quot;:&quot;Full bleed&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Home&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Airy&quot;,&quot;Dense&quot;],&quot;default&quot;:&quot;Airy&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Grid&quot;},&quot;showCodes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Grid&quot;}}">
+const PH = [
+  "uploads/photos-1794950466163-asmr.jpg",
+  "uploads/photos-1794950608998-kgeo.jpg",
+  "uploads/photos-1794950542120-3tu7.jpg",
+  "uploads/photos-1794950568977-5cxx.jpg"
+];
+const PRODUCTS = [
+  { id: 1, name: "Citrine Drop Earrings", price: 140, part: "Ear", stone: "Citrine", code: "D01·E01 · AG925+CIT", img: PH[1], pos: "50% 38%", zoom: 1.8 },
+  { id: 2, name: "Pyrite Chain Necklace", price: 180, part: "Neck", stone: "Pyrite", code: "D01·N01 · AG925+PYR", img: PH[0], pos: "35% 55%", zoom: 1.6 },
+  { id: 3, name: "Old City Signet", price: 160, part: "Finger", stone: "Fluorite", code: "D01·F01 · AG925+FLU", img: PH[2], pos: "50% 70%", zoom: 1.7, sized: true },
+  { id: 4, name: "Bench Cuff", price: 210, part: "Wrist", stone: "None, raw silver", code: "D01·W01 · AG925", img: PH[3], pos: "50% 50%", zoom: 1.4 },
+  { id: 5, name: "Pearl & Silver Choker", price: 190, part: "Neck", stone: "Freshwater pearl", code: "D01·N02 · AG925+PRL", img: PH[2], pos: "50% 45%", zoom: 1.5 },
+  { id: 6, name: "Stone Hoops", price: 120, part: "Ear", stone: "Citrine", code: "D01·E02 · AG925+CIT", img: PH[0], pos: "65% 35%", zoom: 1.7 },
+  { id: 7, name: "Cutter's Ring", price: 110, part: "Finger", stone: "Pyrite", code: "D01·F02 · AG925+PYR", img: PH[3], pos: "40% 60%", zoom: 1.8, sized: true },
+  { id: 8, name: "Fluorite Pendant", price: 150, part: "Neck", stone: "Fluorite", code: "D01·N03 · AG925+FLU", img: PH[1], pos: "50% 62%", zoom: 1.6 }
+];
+const PARTS = ["All", "Ear", "Neck", "Finger", "Wrist"];
+const SIZES = ["50", "52", "54", "56"];
+
+class Component extends DCLogic {
+  state = { page: "home", pid: 1, filter: "All", size: "52", cart: [], cartOpen: false, added: false };
+  go(page, e) { if (e && e.preventDefault) e.preventDefault(); this.setState({ page, cartOpen: false }); window.scrollTo(0, 0); }
+  open(id, e) { if (e && e.preventDefault) e.preventDefault(); this.setState({ page: "product", pid: id, added: false }); window.scrollTo(0, 0); }
+  add() {
+    const p = PRODUCTS.find(x => x.id === this.state.pid);
+    const size = p.sized ? this.state.size : null;
+    const key = p.id + "-" + (size || "");
+    this.setState(s => {
+      const ex = s.cart.find(c => c.key === key);
+      const cart = ex ? s.cart.map(c => c.key === key ? { ...c, qty: c.qty + 1 } : c) : [...s.cart, { key, id: p.id, size, qty: 1 }];
+      return { cart, cartOpen: true, added: true };
+    });
+  }
+  renderVals() {
+    const s = this.state;
+    const P = this.props;
+    const showCodes = P.showCodes ?? true;
+    const cardMin = (P.density ?? "Airy") === "Dense" ? "200px" : "280px";
+    const hero = P.hero ?? "Full bleed";
+    const card = p => ({ ...p, open: e => this.open(p.id, e) });
+    const product = PRODUCTS.find(x => x.id === s.pid);
+    const others = PH.filter(x => x !== product.img);
+    const cartItems = s.cart.map(c => {
+      const p = PRODUCTS.find(x => x.id === c.id);
+      return { name: p.name, img: p.img, pos: p.pos, meta: (c.size ? "Size " + c.size + " · " : "") + "Qty " + c.qty, total: p.price * c.qty, remove: () => this.setState(st => ({ cart: st.cart.filter(x => x.key !== c.key) })) };
+    });
+    return {
+      isHome: s.page === "home", isShop: s.page === "shop", isProduct: s.page === "product", isStudio: s.page === "studio",
+      goHome: e => this.go("home", e), goShop: e => this.go("shop", e), goStudio: e => this.go("studio", e),
+      heroFull: hero === "Full bleed", heroFramed: hero === "Framed pair",
+      showCodes, cardMin,
+      productCount: PRODUCTS.length,
+      featured: PRODUCTS.slice(0, 4).map(card),
+      shopList: PRODUCTS.filter(p => s.filter === "All" || p.part === s.filter).map(card),
+      filters: PARTS.map(f => ({ label: f, line: f === s.filter ? "#141414" : "transparent", onClick: () => this.setState({ filter: f }) })),
+      collections: [
+        { no: "No. 01", city: "Jaipur", craft: "Silver & stone", status: "Available", op: 1 },
+        { no: "No. 02", city: "To be announced", craft: "Next city, next craft", status: "Soon", op: 0.45 }
+      ],
+      product: { ...product, desc: "Made at the bench in Jaipur's old city. The silver is shaped and linked by hand, the stone cut and set by the same people who taught the studio." },
+      gallery: [{ img: product.img, pos: product.pos, zoom: product.zoom, alt: product.name }, ...others.slice(0, 3).map(img => ({ img, pos: "center", zoom: 1, alt: product.name + " worn in Jaipur" }))],
+      sizes: SIZES.map(z => ({ label: z, border: z === s.size ? "#141414" : "#d9d7d2", bg: z === s.size ? "#141414" : "transparent", fg: z === s.size ? "#f4f3f0" : "#141414", onClick: () => this.setState({ size: z }) })),
+      addToCart: () => this.add(),
+      addLabel: s.added ? "Added — add another" : "Add to cart",
+      cartOpen: s.cartOpen,
+      openCart: () => this.setState({ cartOpen: true }),
+      closeCart: () => this.setState({ cartOpen: false }),
+      cartItems, cartEmpty: cartItems.length === 0,
+      cartCount: s.cart.reduce((n, c) => n + c.qty, 0),
+      subtotal: cartItems.reduce((n, c) => n + c.total, 0)
+    };
+  }
+}
+</script>
+</body>
+</html>
